@@ -3,20 +3,22 @@
 
 #include "Base.h"
 #include <cstring>
+#include <cmath>
 
 class Shape2D : public Base
 {
-protected:
+private:
 	char *type;
 	char *dimensions;
 	double area;
 	char *drawing;
 
 	void calculateArea();
+	void generateDrawing();
 
 public:
 	Shape2D();
-	Shape2D(const char *shapeType, const char *dims, const char *draw = nullptr);
+	Shape2D(const char *shapeType, const char *dims);
 	Shape2D(const Shape2D &other);
 	~Shape2D();
 
@@ -29,7 +31,6 @@ public:
 
 	void setType(const char *shapeType);
 	void setDimensions(const char *dims);
-	void setDrawing(const char *draw);
 
 	void display() const override;
 	void edit() override;
