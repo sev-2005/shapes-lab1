@@ -21,14 +21,14 @@ public:
 Shape2D::Shape2D()
 	: type(nullptr), dimensions(nullptr), area(0), drawing(nullptr)
 {
-	std::cout << "Shape2D: Default constructor called" << std::endl;
+	std::cout << "Shape2D: Вызван конструктор по умолчанию" << std::endl;
 }
 
 Shape2D::Shape2D(const char *shapeType, const char *dims)
 {
 	if (!shapeType || strlen(shapeType) == 0)
 	{
-		throw ShapeException("Shape type cannot be empty");
+		throw ShapeException("Тип фигуры не может быть пустым");
 	}
 
 	type = new char[strlen(shapeType) + 1];
@@ -36,7 +36,7 @@ Shape2D::Shape2D(const char *shapeType, const char *dims)
 
 	if (!dims || strlen(dims) == 0)
 	{
-		throw ShapeException("Dimensions cannot be empty");
+		throw ShapeException("Размеры не могут быть пустыми");
 	}
 	dimensions = new char[strlen(dims) + 1];
 	strcpy(dimensions, dims);
@@ -44,7 +44,7 @@ Shape2D::Shape2D(const char *shapeType, const char *dims)
 	calculateArea();
 	generateDrawing();
 
-	std::cout << "Shape2D: Parameterized constructor called for " << type << std::endl;
+	std::cout << "Shape2D: Вызван параметризованный конструктор для " << type << std::endl;
 }
 
 Shape2D::Shape2D(const Shape2D &other)
@@ -67,7 +67,7 @@ Shape2D::Shape2D(const Shape2D &other)
 		drawing = nullptr;
 	}
 
-	std::cout << "Shape2D: Copy constructor called for " << type << std::endl;
+	std::cout << "Shape2D: Вызван конструктор копирования для " << type << std::endl;
 }
 
 Shape2D::~Shape2D()
@@ -75,7 +75,7 @@ Shape2D::~Shape2D()
 	delete[] type;
 	delete[] dimensions;
 	delete[] drawing;
-	std::cout << "Shape2D: Destructor called for " << (type ? type : "unknown") << std::endl;
+	std::cout << "Shape2D: Вызван деструктор для " << (type ? type : "неизвестно") << std::endl;
 }
 
 Shape2D &Shape2D::operator=(const Shape2D &other)
@@ -104,32 +104,32 @@ Shape2D &Shape2D::operator=(const Shape2D &other)
 			drawing = nullptr;
 		}
 	}
-	std::cout << "Shape2D: Assignment operator called for " << type << std::endl;
+	std::cout << "Shape2D: Вызван оператор присваивания для " << type << std::endl;
 	return *this;
 }
 
 void Shape2D::calculateArea()
 {
-	if (strcmp(type, "Circle") == 0)
+	if (strcmp(type, "Круг") == 0)
 	{
 		double radius;
-		if (sscanf(dimensions, "Radius: %lf", &radius) == 1)
+		if (sscanf(dimensions, "Радиус: %lf", &radius) == 1)
 		{
 			area = 3.14159 * radius * radius;
 		}
 	}
-	else if (strcmp(type, "Rectangle") == 0)
+	else if (strcmp(type, "Прямоугольник") == 0)
 	{
 		double width, height;
-		if (sscanf(dimensions, "Width: %lf, Height: %lf", &width, &height) == 2)
+		if (sscanf(dimensions, "Ширина: %lf, Высота: %lf", &width, &height) == 2)
 		{
 			area = width * height;
 		}
 	}
-	else if (strcmp(type, "Triangle") == 0)
+	else if (strcmp(type, "Треугольник") == 0)
 	{
 		double base, height;
-		if (sscanf(dimensions, "Base: %lf, Height: %lf", &base, &height) == 2)
+		if (sscanf(dimensions, "Основание: %lf, Высота: %lf", &base, &height) == 2)
 		{
 			area = 0.5 * base * height;
 		}
@@ -138,7 +138,7 @@ void Shape2D::calculateArea()
 
 void Shape2D::generateDrawing()
 {
-	if (strcmp(type, "Circle") == 0)
+	if (strcmp(type, "Круг") == 0)
 	{
 		const char *circle =
 			"  ***  \n"
@@ -149,7 +149,7 @@ void Shape2D::generateDrawing()
 		drawing = new char[strlen(circle) + 1];
 		strcpy(drawing, circle);
 	}
-	else if (strcmp(type, "Rectangle") == 0)
+	else if (strcmp(type, "Прямоугольник") == 0)
 	{
 		const char *rect =
 			"*******\n"
@@ -159,7 +159,7 @@ void Shape2D::generateDrawing()
 		drawing = new char[strlen(rect) + 1];
 		strcpy(drawing, rect);
 	}
-	else if (strcmp(type, "Triangle") == 0)
+	else if (strcmp(type, "Треугольник") == 0)
 	{
 		const char *triangle =
 			"   *   \n"
@@ -175,7 +175,7 @@ void Shape2D::setType(const char *shapeType)
 {
 	if (!shapeType || strlen(shapeType) == 0)
 	{
-		throw ShapeException("Shape type cannot be empty");
+		throw ShapeException("Тип фигуры не может быть пустым");
 	}
 	delete[] type;
 	type = new char[strlen(shapeType) + 1];
@@ -188,7 +188,7 @@ void Shape2D::setDimensions(const char *dims)
 {
 	if (!dims || strlen(dims) == 0)
 	{
-		throw ShapeException("Dimensions cannot be empty");
+		throw ShapeException("Размеры не могут быть пустыми");
 	}
 	delete[] dimensions;
 	dimensions = new char[strlen(dims) + 1];
@@ -199,30 +199,30 @@ void Shape2D::setDimensions(const char *dims)
 
 void Shape2D::display() const
 {
-	std::cout << "\n=== 2D Shape ===" << std::endl;
-	std::cout << "Type: " << type << std::endl;
-	std::cout << "Dimensions: " << dimensions << std::endl;
-	std::cout << "Area: " << area << std::endl;
+	std::cout << "\n=== 2D Фигура ===" << std::endl;
+	std::cout << "Тип: " << type << std::endl;
+	std::cout << "Размеры: " << dimensions << std::endl;
+	std::cout << "Площадь: " << area << std::endl;
 	if (drawing)
 	{
-		std::cout << "Drawing:\n"
+		std::cout << "Рисунок:\n"
 				  << drawing << std::endl;
 	}
 }
 
 void Shape2D::edit()
 {
-	std::cout << "\n=== Editing " << type << " ===" << std::endl;
+	std::cout << "\n=== Редактирование " << type << " ===" << std::endl;
 
 	char buffer[100];
-	std::cout << "Enter new type (current: " << type << "): ";
+	std::cout << "Введите новый тип (текущий: " << type << "): ";
 	std::cin.getline(buffer, 100);
 	if (strlen(buffer) > 0)
 	{
 		setType(buffer);
 	}
 
-	std::cout << "Enter new dimensions (current: " << dimensions << "): ";
+	std::cout << "Введите новые размеры (текущие: " << dimensions << "): ";
 	std::cin.getline(buffer, 100);
 	if (strlen(buffer) > 0)
 	{
@@ -242,7 +242,7 @@ void Shape2D::loadFromFile(std::istream &is)
 {
 	char buffer[100];
 
-	is.getline(buffer, 100); // skip "2D"
+	is.getline(buffer, 100); // пропускаем "2D"
 	is.getline(buffer, 100);
 	setType(buffer);
 
